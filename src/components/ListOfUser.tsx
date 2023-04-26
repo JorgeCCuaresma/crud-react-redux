@@ -10,9 +10,15 @@ import {
 	Title,
 } from "@tremor/react";
 import { useAppSelector } from "../hooks/store";
+import {  useUserAction } from "../hooks/useUserAction";
+
+
 
 export default function ListOfUser() {
 	const users = useAppSelector((state) => state.users);
+	const { removeUserById }= useUserAction();
+
+
 
 	return (
 		<Card>
@@ -49,7 +55,7 @@ export default function ListOfUser() {
 							</TableCell>
 							<TableCell>{item.email}</TableCell>
 							<TableCell>
-								<button type="button">
+								<button onClick={() => removeUserById(item.id)} type="button">
 									<svg
 										xmlns="http://www.w3.org/2000/svg"
 										fill="none"
@@ -65,7 +71,7 @@ export default function ListOfUser() {
 										/>
 									</svg>
 								</button>
-								<button type="button">
+								<button  type="button">
 									<svg
 										xmlns="http://www.w3.org/2000/svg"
 										fill="none"
