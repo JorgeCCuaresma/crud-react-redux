@@ -9,51 +9,16 @@ import {
 	TableRow,
 	Title,
 } from "@tremor/react";
-
-const users: {
-	id: string;
-	name: string;
-	email: string;
-	gitHub: string;
-}[] = [
-	{
-		id: "1",
-		name: "Peter Doe",
-		email: "G0t9b@example.com",
-		gitHub: "peterdoe",
-	},
-	{
-		id: "2",
-		name: "John Doe",
-		email: "G0t9b@example.com",
-		gitHub: "johndoe",
-	},
-	{
-		id: "3",
-		name: "Jane Doe",
-		email: "G0t9b@example.com",
-		gitHub: "JaneDoe",
-	},
-	{
-		id: "4",
-		name: "Emma Twoo",
-		email: "G0t9b@example.com",
-		gitHub: "EmmaTwoo",
-	},
-	{
-		id: "5",
-		name: "Julio Ben",
-		email: "G0t9b@example.com",
-		gitHub: "JulioBen",
-	},
-];
+import { useAppSelector } from "../hooks/store";
 
 export default function ListOfUser() {
+	const users = useAppSelector((state) => state.users);
+
 	return (
 		<Card>
 			<Title>
 				Usuarios
-				<Badge style={{marginLeft: "10px"}}>{users.length}</Badge>
+				<Badge style={{ marginLeft: "10px" }}>{users.length}</Badge>
 			</Title>
 			<Table>
 				<TableHead>
@@ -77,7 +42,7 @@ export default function ListOfUser() {
 										borderRadius: "50%",
 										marginRight: "8px",
 									}}
-									src={`https://unavatar.io/github/${item.gitHub}`}
+									src={`https://unavatar.io/github/${item.github}`}
 									alt={item.name}
 								/>
 								{item.name}
