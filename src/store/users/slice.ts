@@ -12,7 +12,7 @@ export interface UserWithId extends User {
 	id: UserId;
 }
 
-const initialState: UserWithId[] = [
+const DEFAULT_STATE: UserWithId[] = [
 	{
 		id: "1",
 		name: "Peter Doe",
@@ -45,6 +45,12 @@ const initialState: UserWithId[] = [
 	},
 ];
 
+let initialState : UserWithId[] = DEFAULT_STATE;
+const persistStated = localStorage.getItem("__redux_state__");
+if (persistStated) {
+	initialState = JSON.parse(persistStated).users;
+}
+
 export const userSlice = createSlice({
 	name: "user",
 	initialState,
@@ -52,7 +58,7 @@ export const userSlice = createSlice({
 		deleteUserById: (state, action: PayloadAction<UserId>) => {
 			const id = action.payload;
 			return state.filter((user) => user.id !== id);
-		}
+		},
 	},
 });
 
