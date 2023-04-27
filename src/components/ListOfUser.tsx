@@ -1,3 +1,5 @@
+import { useAppSelector } from "../hooks/store";
+import { useUserAction } from "../hooks/useUserAction";
 import {
 	Badge,
 	Card,
@@ -9,16 +11,10 @@ import {
 	TableRow,
 	Title,
 } from "@tremor/react";
-import { useAppSelector } from "../hooks/store";
-import {  useUserAction } from "../hooks/useUserAction";
-
-
 
 export default function ListOfUser() {
 	const users = useAppSelector((state) => state.users);
-	const { removeUserById }= useUserAction();
-
-
+	const { removeUserById } = useUserAction();
 
 	return (
 		<Card>
@@ -71,7 +67,7 @@ export default function ListOfUser() {
 										/>
 									</svg>
 								</button>
-								<button  type="button">
+								<button type="button">
 									<svg
 										xmlns="http://www.w3.org/2000/svg"
 										fill="none"
