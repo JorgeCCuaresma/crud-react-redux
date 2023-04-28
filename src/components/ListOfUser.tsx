@@ -34,7 +34,7 @@ export default function ListOfUser() {
 
 				<TableBody>
 					{users.map((item) => (
-						<TableRow key={item.name}>
+						<TableRow key={item.id}>
 							<TableCell>{item.id}</TableCell>
 							<TableCell style={{ display: "flex", alignItems: "center" }}>
 								<img
@@ -67,7 +67,7 @@ export default function ListOfUser() {
 										/>
 									</svg>
 								</button>
-								<button type="button">
+								<button  type="button">
 									<svg
 										xmlns="http://www.w3.org/2000/svg"
 										fill="none"
