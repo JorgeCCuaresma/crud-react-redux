@@ -1,10 +1,11 @@
 import { useUserAction } from "../hooks/useUserAction";
-import { Badge, Button, Card, TextInput, Title } from "@tremor/react";
-import { useState } from "react";
+import {  Button, Card, TextInput, Title } from "@tremor/react";
+import { toast } from 'sonner'
+
 
 export default function CreateNewUser() {
 	const { addUser } = useUserAction();
-	const [result, setResult] = useState<"ok" | "error" | null>(null);
+
 
 	const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
@@ -17,12 +18,13 @@ export default function CreateNewUser() {
 		const github = formData.get("github") as string;
 
 		if ((!name || !email || !github)) {
-			setResult("error");
+		toast.error("Please fill all fields");
 			return;
 		}
 
 		addUser({ name, email, github })
-        setResult("ok");
+		toast.success("User created");
+        
         form.reset()
 ;
 	};
@@ -34,12 +36,7 @@ export default function CreateNewUser() {
 				<TextInput name="email" placeholder="Type Email" />
 				<TextInput name="github" placeholder="Type Github" />
 				<div style={{ marginTop: "12px" }}>
-					<Button type='submit'>Submit</Button>
-                    <span style={{marginLeft:'10px'}}>
-                        {result === "ok" && <Badge color="green">User Created</Badge>}
-                        {result === "error" && <Badge color="red">Empty fields error</Badge>}
-                    </span>
-                    
+					<Button type='submit'>Submit</Button>                    
 				</div>
 			</form>
 		</Card>
