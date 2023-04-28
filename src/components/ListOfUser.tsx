@@ -17,7 +17,7 @@ export default function ListOfUser() {
 	const { removeUserById } = useUserAction();
 
 	return (
-		<Card>
+		<Card style={{backgroundColor:'#f2f2f2', marginBottom:'12px'}}>
 			<Title>
 				Usuarios
 				<Badge style={{ marginLeft: "10px" }}>{users.length}</Badge>
