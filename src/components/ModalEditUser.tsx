@@ -12,6 +12,9 @@ interface Props {
 export const ModalEditUser: FC<Props> = ({ user }) => {
 	const { editUser } = useUserAction();
 	const [show, setShow] = useState(false);
+	const [name, setName] = useState(user.name);
+	const [email, setEmail] = useState(user.email);
+	const [github, setGithub] = useState(user.github);
 
 	const handleClose = () => setShow(false);
 	const handleShow = () => setShow(true);
@@ -47,7 +50,9 @@ export const ModalEditUser: FC<Props> = ({ user }) => {
 			github,
 		};
 		console.log(userUpdate);
-		editUser(userUpdate);
+		if (name !== user.name || email !== user.email || github !== user.github) {
+			editUser(userUpdate);
+		} else return toast.error("Please fill in at least one field");
 		handleClose();
 		toast.success("User updated");
 	};
@@ -70,15 +75,31 @@ export const ModalEditUser: FC<Props> = ({ user }) => {
 					/>
 				</svg>
 			</button>
-			<Modal show={show} onHide={handleClose}>
+			<Modal centered show={show} onHide={handleClose}>
 				<Modal.Header closeButton>
 					<Modal.Title>Update User</Modal.Title>
 				</Modal.Header>
 				<Modal.Body>
 					<form onSubmit={handleUpdate}>
-						<TextInput name="name" placeholder={user.name} />
-						<TextInput name="email" placeholder={user.email} />
-						<TextInput name="github" placeholder={user.github} />
+						<TextInput
+							autoFocus
+							name="name"
+							value={name}
+							onChange={(e) => setName(e.target.value)}
+							placeholder="Type new name"
+						/>
+						<TextInput
+							name="email"
+							value={email}
+							onChange={(e) => setEmail(e.target.value)}
+							placeholder="Type new email"
+						/>
+						<TextInput
+							name="github"
+							value={github}
+							onChange={(e) => setGithub(e.target.value)}
+							placeholder='Type new github'
+						/>
 						<div style={{ marginTop: "12px" }}>
 							<Button
 								style={{ marginRight: "12px" }}
@@ -87,7 +108,14 @@ export const ModalEditUser: FC<Props> = ({ user }) => {
 							>
 								Update
 							</Button>
-							<Button type="button" variant="secondary" onClick={handleClose}>
+							<Button
+								type="button"
+								variant="secondary"
+								onClick={() => {
+									handleClose();
+									setName(user.name);
+								}}
+							>
 								Close
 							</Button>
 						</div>
